@@ -11,14 +11,16 @@ class Manager {
   #bot;
   #deck;
   #diller;
+  #audio;
 
-  constructor() {
+  constructor(audio) {
     this.#playerElement = document.querySelector("#player");
     this.#botElement = document.querySelector("#bot");
     this.#dillerElement = document.querySelector("#diller");
     this.#deckElement = document.querySelector("#deck");
     this.#playerScoreElement = document.querySelector("#playerScore");
     this.#botScoreElement = document.querySelector("#botScore");
+    this.#audio = audio;
   }
 
   get playerElement() {
@@ -42,7 +44,7 @@ class Manager {
     this.#player = new Player("Player");
     this.#bot = new Player("Bot");
     this.#diller.shuffle();
-    this.#diller.showDeck(this.#deckElement);
+    this.#diller.showDeck(this.#deckElement, this.#audio);
   }
 
   clearPlayersFields() {
@@ -62,13 +64,13 @@ class Manager {
 
   newDeal() {
     this.clearPlayersFields();
-    this.#diller.dealCards(this.#player, this.#playerElement, true);
+    this.#diller.dealCards(this.#player, this.#playerElement, true, this.#audio);
     if (this.#player.calc_Cards_Sum() == 21) {
       this.#playerScore = this.#playerScore + 1;
       this.#playerScoreElement.innerHTML = `${this.#playerScore}`;
     }
 
-    this.#diller.dealCards(this.#bot, this.#botElement, false);
+    this.#diller.dealCards(this.#bot, this.#botElement, false, this.#audio);
     if (this.#bot.calc_Cards_Sum() == 21) {
       this.#botScore = this.#botScore + 1;
       this.#botScoreElement.innerHTML = `${this.#botScore}`;

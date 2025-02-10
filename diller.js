@@ -3,6 +3,7 @@ class Diller {
 
     constructor(deck) {
         this.#deck = deck;
+
     }
 
     get Deck() {
@@ -13,13 +14,15 @@ class Diller {
         this.#deck.sort(() => Math.random() - 0.5);
     }
 
-    showDeck(deckElement) {
+    showDeck(deckElement, audio) {
         let X = 0;
         let Y = 0;
         let index = 0;
+        console.log(audio)
         this.Deck.forEach(card => {
             setTimeout(function () {
                 card.element.style.transform = `translate(${X}px, ${Y}px)`;
+                audio.play();
                 deckElement.append(card.element);
                 Y += 1;
                 X += 1;
@@ -28,8 +31,7 @@ class Diller {
         });
     }
 
-
-    dealCards(player, zone, flip) {
+    dealCards(player, zone, flip, audio) {
         let X = -50;
         let Y = 0;
         let index = 0;
@@ -39,9 +41,13 @@ class Diller {
                 card.element.style.transform = `translate(${X}px, ${Y}px)`;
                 if (flip) {
                     card.flip();
+                    audio.play();
                     zone.append(card.element);
                 }
-                else zone.append(card.element);
+                else {
+                    audio.play();
+                    zone.append(card.element);
+                }
                 X += 150;
             }, index * 100)
             index++;

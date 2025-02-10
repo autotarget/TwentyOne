@@ -2,9 +2,13 @@
 let startBtn = document.querySelector("#startGame");
 let newDealBtn = document.querySelector("#newDeal");
 let addCardBtn = document.querySelector("#takeCard");
+let audio = new Audio('./sounds/korotkiy-zvuk-razdachi-kart.mp3');
+audio.volume = 0.3;
+audio.preload = 'auto';
 newDealBtn.setAttribute('disabled', '');
 addCardBtn.setAttribute('disabled', '');
-let gm = new Manager();
+
+let gm = new Manager(audio);
 startBtn.addEventListener("click", function (e) {
     e.stopPropagation();
     gm.deckElement.innerHTML = '';
